@@ -1,0 +1,80 @@
+﻿<Window x:Class="CSharpTest1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf.DataTemplates.WithoutDataTemplates"
+        xmlns:s="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Icon="{Binding Icon}"
+        Title="HedgehogCounter" Height="600" Width="960" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            <s:Boolean x:Key="True">True</s:Boolean>
+            <s:Boolean x:Key="False">False</s:Boolean>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Margin="10px">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="10px"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="10px"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Style="{StaticResource TextBold}">Завдання</TextBlock>
+        <RichTextBox Grid.Row="1">
+            <FlowDocument>
+                <Paragraph>Завдання про їжачків. Їжачки можуть бути лише одного з трьох кольорів - червоного, зеленого та синього. Коли зустрічаються два їжачки різних кольорів, вони можуть змінити свій колір на третій. Іншого способу змінити свій колір у їжаків немає (зокрема, коли зустрічаються червоний і синій їжачок, вони не можуть стати обоє червоними, можна припустити лише третій колір).
+Їжачки хочуть стати одного певного кольору. Вони можуть планувати свої зустрічі, щоб досягти цієї мети. Їжачки хочуть знати, як швидко можна досягти своєї мети (якщо її взагалі можна досягнути).
+                </Paragraph>
+                <Paragraph>Колір задано цілим числом, 0 - червоний, 1 - зелений, 2 - синій. Початкова популяція їжаків задана у вигляді масиву з трьох цілих чисел з індексом, що відповідає кольору. Всі числа невід'ємні, їх сума знаходиться між 1 та int.MaxValue. Бажаний колір задається цілим числом від 0 до 2.</Paragraph>
+                <Paragraph>Код повинен повернути мінімальну кількість зустрічей, необхідних для зміни всіх їжачків у заданий колір, або -1, якщо це неможливо (наприклад, якщо всі їжачки спочатку одного кольору).</Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+
+        <TextBlock Grid.Row="3" Style="{StaticResource TextBold}">Збір даних</TextBlock>
+        <StackPanel Grid.Row="4">
+            <RichTextBox>
+                <FlowDocument>
+                    <Paragraph>Введіть початкову кількість їжачків кожного кольору та оберіть бажаний колір, або натисніть [Randomize], щоб визначити всі параметри випадковим чином.</Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 10px, 0, 0">
+                <Image Source="{Binding HedgehogRedImage}" Margin="0, 0, 5px, 0"/>
+                <TextBox Width="150px" Text="{Binding CountRed}" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting"/>
+                <Image Source="{Binding HedgehogGreenImage}" Margin="15px, 0, 5px, 0"/>
+                <TextBox Width="150px" Text="{Binding CountGreen}" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting"/>
+                <Image Source="{Binding HedgehogBlueImage}" Margin="15px, 0, 5px, 0"/>
+                <TextBox Width="150px" Text="{Binding CountBlue}" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting"/>
+
+                <TextBlock FontSize="12pt" Margin="60px, 0, 5px, 0" VerticalAlignment="Center">Target color</TextBlock>
+                <Button Width="32px" BorderBrush="{x:Null}" Command="{Binding ColorChangeCommand}" CommandParameter="{StaticResource False}">
+                    <Image Source="{Binding ButtonPrev}"/>
+                </Button>
+                <Image Source="{Binding ColorChoise}"/>
+                <Button Width="32px" BorderBrush="{x:Null}" Command="{Binding ColorChangeCommand}" CommandParameter="{StaticResource True}">
+                    <Image Source="{Binding ButtonNext}"/>
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 10px, 0, 0">
+                <Button Width="120px" FontSize="12pt" Command="{Binding RandomizeCommand}">Randomize</Button>
+            </StackPanel>
+        </StackPanel>
+
+        <TextBlock Grid.Row="6" Style="{StaticResource TextBold}">Результат</TextBlock>
+        <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="0,10,0,0" >
+            <Button Width="120px" FontSize="12pt" Command="{Binding CalculateCommand}">Calculate</Button>
+            <TextBlock FontSize="12pt" Margin="10px, 0, 0, 0" VerticalAlignment="Center" Text="{Binding ResultText}"/>
+        </StackPanel>
+    </Grid>
+</Window>
