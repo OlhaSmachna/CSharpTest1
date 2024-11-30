@@ -34,7 +34,7 @@ namespace CSharpTest1
              * а дві інші позиції дорівнюють 0
             */
 
-            // Створюэмо пару, ключем якоъ будерывень вузла, а значенням - масив із станом популяції
+            // Створюємо пару, ключем якої буде рівень вузла, а значенням - масив із станом популяції
             KeyValuePair<int, int[]> currentState = new KeyValuePair<int, int[]>(0, population);
             // Створюємо чергу відповідного типу для проходу по графу
             Queue<KeyValuePair<int, int[]>> populationState = new Queue<KeyValuePair<int, int[]>>();
